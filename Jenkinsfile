@@ -5,7 +5,6 @@ pipeline {
       go 'go'
     }
 
-
     environment {
         GITHUB_TOKEN = credentials('Github')
     }
