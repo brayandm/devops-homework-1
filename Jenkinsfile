@@ -29,5 +29,14 @@ pipeline {
                 archiveArtifacts(artifacts: 'devops-homework-1/app', onlyIfSuccessful: true)
             }
         }
+
+        stage('Test') {
+            steps {
+                dir('devops-homework-1') {
+                    sh('go mod init app')
+                    sh('go test .')
+                }
+            }
+        }
     }
 }
