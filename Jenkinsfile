@@ -10,6 +10,12 @@ pipeline {
     }
 
     stages {
+        stage('Cleaning Repository') {
+            steps {
+                sh('rm -rf devops-homework-1')
+            }
+        }
+
         stage('Build') {
             steps {
                 dir('devops-homework-1') {
