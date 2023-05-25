@@ -5,10 +5,6 @@ pipeline {
         go 'go'
     }
 
-    environment {
-        GITHUB_TOKEN = credentials('Github')
-    }
-
     stages {
 
         stage('Build') {
