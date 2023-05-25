@@ -13,6 +13,7 @@ pipeline {
 
         stage('Build') {
             steps {
+                sh("ls")
                 dir('devops-homework-1') {
                     sh('go build -o app main.go')
                 }
