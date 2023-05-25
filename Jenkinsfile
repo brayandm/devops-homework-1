@@ -10,11 +10,6 @@ pipeline {
     }
 
     stages {
-        stage('Cleaning Repository') {
-            steps {
-                sh('rm -rf devops-homework-1')
-            }
-        }
 
         stage('Build') {
             steps {
@@ -36,6 +31,12 @@ pipeline {
                     sh('go mod init app')
                     sh('go test .')
                 }
+            }
+        }
+
+        stage('Cleaning Repository') {
+            steps {
+                sh('rm -rf devops-homework-1')
             }
         }
     }
