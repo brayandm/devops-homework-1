@@ -10,12 +10,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                sh('rm -rf devops-homework-1 && git clone https://${GITHUB_TOKEN}@github.com/brayandm/devops-homework-1.git')
-            }
-        }
-
         stage('Build') {
             steps {
                 dir('devops-homework-1') {
