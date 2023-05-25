@@ -13,31 +13,20 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh("ls")
-                dir('devops-homework-1') {
-                    sh('go build -o app main.go')
-                }
+                sh('go build -o app main.go')
             }
         }
 
         stage('Archive Artifact') {
             steps {
-                archiveArtifacts(artifacts: 'devops-homework-1/app', onlyIfSuccessful: true)
+                archiveArtifacts(artifacts: 'app', onlyIfSuccessful: true)
             }
         }
 
         stage('Test') {
             steps {
-                dir('devops-homework-1') {
-                    sh('go mod init app')
-                    sh('go test .')
-                }
-            }
-        }
-
-        stage('Cleaning Repository') {
-            steps {
-                sh('rm -rf devops-homework-1')
+                sh('go mod init app')
+                sh('go test .')
             }
         }
     }
