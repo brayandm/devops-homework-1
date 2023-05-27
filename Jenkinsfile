@@ -31,6 +31,12 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-credentials', keyFileVariable: 'KeyFile', usernameVariable: 'userName')]) {
                     sh "ssh-keyscan 192.168.105.3 > ~/.ssh/known_hosts"
                     sh "scp -i ${KeyFile} app ${userName}@192.168.105.3:"
+                    sh "scp -i ${KeyFile} myapp.service ${userName}@192.168.105.3:"
+
+                    sh "ssh -l ${userName} -i ${KeyFile} 192.168.105.3 -C sudo mv myapp.service /etc/systemd/system/"
+                    sh "ssh -l ${userName} -i ${KeyFile} 192.168.105.3 -C sudo systemctl daemon-reload"
+                    sh "ssh -l ${userName} -i ${KeyFile} 192.168.105.3 -C sudo systemctl start myapp"
+                    sh "ssh -l ${userName} -i ${KeyFile} 192.168.105.3 -C sudo systemctl enable myapp"
                 }
             }
         }
