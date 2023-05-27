@@ -7,6 +7,14 @@ pipeline {
 
     stages {
 
+          stage('Cleaning1') {
+            steps {
+                sh('rm -rf app')
+                sh('rm -rf go.mod')
+            }
+        }
+
+
         stage('Build') {
             steps {
                 sh('go build -o app main.go')
@@ -23,13 +31,6 @@ pipeline {
             steps {
                 sh('go mod init app')
                 sh('go test .')
-            }
-        }
-
-        stage('Cleaning1') {
-            steps {
-                sh('rm -rf app')
-                sh('rm -rf go.mod')
             }
         }
 
