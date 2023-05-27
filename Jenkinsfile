@@ -7,6 +7,13 @@ pipeline {
 
     stages {
 
+        stage('Cleaning') {
+            steps {
+                sh('rm -rf app')
+                sh('rm -rf go.mod')
+            }
+        }
+
         stage('Build') {
             steps {
                 sh('go build -o app main.go')
@@ -26,18 +33,18 @@ pipeline {
             }
         }
 
+        stage('Cleaning') {
+            steps {
+                sh('rm -rf app')
+                sh('rm -rf go.mod')
+            }
+        }
+
         stage('Deploy') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-credentials', keyFileVariable: 'KeyFile', usernameVariable: 'userName')]) {
                     sh "scp -i ${KeyFile} main ${userName}@192.168.105.3:"
                 }
-            }
-        }
-
-        stage('Cleaning') {
-            steps {
-                sh('rm -rf app')
-                sh('rm -rf go.mod')
             }
         }
     }
