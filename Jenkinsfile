@@ -26,6 +26,15 @@ pipeline {
             }
         }
 
+        stage('Deploy') {
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-credentials', keyFileVariable: 'KeyFile', usernameVariable: 'userName')]) {
+                    sh "ssh-keyscan 192.168.105.3 > ~/.ssh/known_hosts"
+                    sh "scp -i ${KeyFile} main ${userName}@192.168.105.3:"
+                }
+            }
+        }
+
         stage('Cleaning') {
             steps {
                 sh('rm -rf app')
