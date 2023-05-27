@@ -7,7 +7,7 @@ pipeline {
 
     stages {
 
-        stage('Cleaning') {
+        stage('Cleaning1') {
             steps {
                 sh('rm -rf app')
                 sh('rm -rf go.mod')
