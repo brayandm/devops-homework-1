@@ -7,6 +7,13 @@ pipeline {
 
     stages {
 
+        stage('Test') {
+            steps {
+                sh('go mod init app')
+                sh('go test .')
+            }
+        }
+
         stage('Build') {
             steps {
                 sh('go build -o app main.go')
@@ -16,13 +23,6 @@ pipeline {
         stage('Archive Artifact') {
             steps {
                 archiveArtifacts(artifacts: 'app', onlyIfSuccessful: true)
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh('go mod init app')
-                sh('go test .')
             }
         }
 
