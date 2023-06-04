@@ -37,7 +37,7 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-credentials', keyFileVariable: 'KeyFile', usernameVariable: 'userName')]) {
                     sh "ssh-keyscan 192.168.105.3 > ~/.ssh/known_hosts"
 
-                    sh "ssh -l ${userName} -i ${KeyFile} 192.168.105.3 -C sudo systemctl stop myapp"
+                    sh "ssh -l ${userName} -i ${KeyFile} 192.168.105.3 -C sudo systemctl stop myapp || true"
 
                     sh "scp -i ${KeyFile} app ${userName}@192.168.105.3:"
                     sh "scp -i ${KeyFile} myapp.service ${userName}@192.168.105.3:"
@@ -55,7 +55,7 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-credentials', keyFileVariable: 'KeyFile', usernameVariable: 'userName')]) {
                     sh "ssh-keyscan 13.53.131.172 > ~/.ssh/known_hosts"
 
-                    sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo systemctl stop myapp"
+                    sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo systemctl stop myapp || true"
 
                     sh "scp -i ${KeyFile} app ${userName}@13.53.131.172:"
                     sh "scp -i ${KeyFile} myapp.service ${userName}@13.53.131.172:"
