@@ -6,6 +6,12 @@ pipeline {
     }
 
     stages {
+        stage('Cleaning') {
+            steps {
+                sh('rm -rf app || true')
+                sh('rm -rf go.mod || true')
+            }
+        }
 
         stage('Test') {
             steps {
@@ -44,11 +50,5 @@ pipeline {
             }
         }
         
-        stage('Cleaning') {
-            steps {
-                sh('rm -rf app')
-                sh('rm -rf go.mod')
-            }
-        }
     }
 }
