@@ -55,15 +55,15 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-credentials', keyFileVariable: 'KeyFile', usernameVariable: 'userName')]) {
                     sh "ssh-keyscan 13.53.131.172 > ~/.ssh/known_hosts"
 
-                    sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo systemctl stop myapp || true"
+                    sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo systemctl stop myappProd || true"
 
                     sh "scp -i ${KeyFile} app ${userName}@13.53.131.172:"
-                    sh "scp -i ${KeyFile} myapp.service ${userName}@13.53.131.172:"
+                    sh "scp -i ${KeyFile} myappProd.service ${userName}@13.53.131.172:"
 
-                    sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo mv myapp.service /etc/systemd/system/"
+                    sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo mv myappProd.service /etc/systemd/system/"
                     sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo systemctl daemon-reload"
-                    sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo systemctl start myapp"
-                    sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo systemctl enable myapp"
+                    sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo systemctl start myappProd"
+                    sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo systemctl enable myappProd"
                 }
             }
         }

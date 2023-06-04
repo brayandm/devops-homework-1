@@ -1,0 +1,10 @@
+[Unit]
+Description=Go Application
+After=network.target
+
+[Service]
+ExecStart=/home/ubuntu/app
+Type=simple
+
+[Install]
+WantedBy=default.target
