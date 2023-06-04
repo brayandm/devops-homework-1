@@ -39,7 +39,7 @@ pipeline {
 
                     sh "ssh -l ${userName} -i ${KeyFile} 192.168.105.3 -C sudo systemctl stop myapp || true"
 
-                    sh "scp -i ${KeyFile} app ${userName}@192.168.105.3:"
+                    sh "scp -i ${KeyFile} app ${userName}@192.168.105.3:/server"
                     sh "scp -i ${KeyFile} myapp.service ${userName}@192.168.105.3:"
 
                     sh "ssh -l ${userName} -i ${KeyFile} 192.168.105.3 -C sudo mv myapp.service /etc/systemd/system/"
@@ -57,7 +57,7 @@ pipeline {
 
                     sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo systemctl stop myapp || true"
 
-                    sh "scp -i ${KeyFile} app ${userName}@13.53.131.172:"
+                    sh "scp -i ${KeyFile} app ${userName}@13.53.131.172:/server"
                     sh "scp -i ${KeyFile} myapp.service ${userName}@13.53.131.172:"
 
                     sh "ssh -l ${userName} -i ${KeyFile} 13.53.131.172 -C sudo mv myapp.service /etc/systemd/system/"

@@ -3,7 +3,7 @@ Description=Go Application
 After=network.target
 
 [Service]
-ExecStart=/home/vagrant/app
+ExecStart=/server/app
 Type=simple
 
 [Install]
