@@ -26,7 +26,7 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to Stage') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-credentials', keyFileVariable: 'KeyFile', usernameVariable: 'userName')]) {
                     sh "ssh-keyscan 192.168.105.3 > ~/.ssh/known_hosts"
