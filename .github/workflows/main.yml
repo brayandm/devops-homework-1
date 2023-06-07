@@ -27,3 +27,9 @@ jobs:
       - name: Build 
         run: |
           go build -o app main.go
+
+      - name: Archive Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app
+          path: app
