@@ -13,3 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Unit tests
+        run: |
+          go mod init app
+          go test .
