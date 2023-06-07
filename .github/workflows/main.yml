@@ -35,6 +35,8 @@ jobs:
           path: app
 
   deploy:
+    needs: build
+  
     runs-on:
       - self-hosted
 
