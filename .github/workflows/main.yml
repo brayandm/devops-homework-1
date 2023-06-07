@@ -38,7 +38,7 @@ jobs:
         run: |
           ssh-keyscan 192.168.105.3 > ~/.ssh/known_hosts
 
-          echo "${{ secrets.SSH__KEY }}" > ~/.ssh/my_key && chmod 600 ~/.ssh/my_key
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/my_key && chmod 600 ~/.ssh/my_key
 
           ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo systemctl stop myapp || true
 
