@@ -42,7 +42,7 @@ jobs:
 
           ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo systemctl stop myapp || true
 
-          scp -i ~/.ssh/my_key ${{ github.workspace }}/app vagrant@192.168.105.3:
+          scp -i ~/.ssh/my_key app vagrant@192.168.105.3:
           scp -i ~/.ssh/my_key myapp.service vagrant@192.168.105.3:
 
           ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo mv myapp.service /etc/systemd/system/
