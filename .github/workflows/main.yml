@@ -36,14 +36,16 @@ jobs:
       
       - name: Deploy
         run: |
+          ssh-keyscan 192.168.105.3 > ~/.ssh/known_hosts
+
           echo "${{ secrets.SSH__KEY }}" > ~/.ssh/my_key
 
-          sh "ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo systemctl stop myapp || true"
+          ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo systemctl stop myapp || true
 
-          sh "scp -i ~/.ssh/my_key app vagrant@192.168.105.3:"
-          sh "scp -i ~/.ssh/my_key myapp.service vagrant@192.168.105.3:"
+          scp -i ~/.ssh/my_key app vagrant@192.168.105.3:
+          scp -i ~/.ssh/my_key myapp.service vagrant@192.168.105.3:
 
-          sh "ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo mv myapp.service /etc/systemd/system/"
-          sh "ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo systemctl daemon-reload"
-          sh "ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo systemctl start myapp"
-          sh "ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo systemctl enable myapp"
+          ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo mv myapp.service /etc/systemd/system/
+          ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo systemctl daemon-reload
+          ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo systemctl start myapp
+          ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo systemctl enable myapp
