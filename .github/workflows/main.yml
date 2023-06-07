@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  deploy:
+  build:
     runs-on:
       - self-hosted
 
@@ -33,6 +33,16 @@ jobs:
         with:
           name: app
           path: app
+
+  deploy:
+    runs-on:
+      - self-hosted
+
+    steps:
+      uses: actions/download-artifact@v3
+      with:
+        name: app
+        path: artifacts/
       
       - name: Deploy
         run: |
@@ -42,7 +52,7 @@ jobs:
 
           ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo systemctl stop myapp || true
 
-          scp -i ~/.ssh/my_key app vagrant@192.168.105.3:
+          scp -i ~/.ssh/my_key artifacts/app vagrant@192.168.105.3:
           scp -i ~/.ssh/my_key myapp.service vagrant@192.168.105.3:
 
           ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo mv myapp.service /etc/systemd/system/
