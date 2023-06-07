@@ -13,7 +13,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Unit Test') {
             steps {
                 sh('go mod init app')
                 sh('go test .')
