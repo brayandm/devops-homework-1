@@ -39,10 +39,10 @@ jobs:
       - self-hosted
 
     steps:
-      uses: actions/download-artifact@v3
-      with:
-        name: app
-        path: artifacts/
+      - uses: actions/download-artifact@v3
+        with:
+          name: app
+          path: artifacts/
       
       - name: Deploy
         run: |
