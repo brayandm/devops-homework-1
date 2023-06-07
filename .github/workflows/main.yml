@@ -36,8 +36,6 @@ jobs:
       
       - name: Deploy
         run: |
-          sh "ssh-keyscan 192.168.105.3 > ~/.ssh/known_hosts"
-
           echo "${{ secrets.SSH__KEY }}" > ~/.ssh/my_key
 
           sh "ssh -l vagrant -i ~/.ssh/my_key 192.168.105.3 -C sudo systemctl stop myapp || true"
