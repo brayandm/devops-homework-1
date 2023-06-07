@@ -19,7 +19,11 @@ jobs:
         with:
           go-version: 1.19
 
-      - name: Unit tests
+      - name: Unit test
         run: |
           go mod init app
           go test .
+
+      - name: Build 
+        run: |
+          go build -o app main.go
